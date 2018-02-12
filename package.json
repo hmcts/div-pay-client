@@ -1,5 +1,5 @@
 {
-  "name": "@hmtcs/div-pay-client",
+  "name": "@hmcts/div-pay-client",
   "version": "4.0.1",
   "description": "Wrapper for payment-api calls",
   "license": "MIT",
