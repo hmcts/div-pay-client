@@ -1,0 +1,21 @@
+{
+  "id": "5",
+  "amount": 55000,
+  "state": {
+    "status": "created",
+    "finished": false
+  },
+  "description": "Filing an application for a divorce, nullity or civil partnership dissolution – fees order 1.2.",
+  "reference": "DIV1$$$a75bdf2d-f415-4fef-9c9c-aa56bcb957c9$$$AA00$$$X0165",
+  "date_created": 1505459675824,
+  "_links": {
+    "next_url": {
+      "href": "https://www.payments.service.gov.uk/secure/1200e1b1-b1b5-4832-a9ba-fbbb5c4e1396",
+      "method": "GET"
+    },
+    "cancel": {
+      "href": "http://localhost:4401/users/34/payments/5/cancel",
+      "method": "POST"
+    }
+  }
+}

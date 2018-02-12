@@ -1,0 +1,12 @@
+{
+  "id": "2",
+  "amount": 55000,
+  "state": {
+    "status": "failed",
+    "finished": true
+  },
+  "description": "Filing an application for a divorce, nullity or civil partnership dissolution – fees order 1.2.",
+  "reference": "DIV1$$$8a330c23-e83f-4b74-945c-06692e6b77b8$$$AA00$$$X0165",
+  "date_created": 1505400930367,
+  "_links": {}
+}
