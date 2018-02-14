@@ -7,14 +7,19 @@ Client library for the Pay common component.
 * Node >=8.0
 * yarn
 
-As of now, this module is published only in a private repository.
-We are working on publishing this project to NPM.
-
 
 ## Installation
 
+As of now, this module is published only in a private repository.
+We are working on publishing this project to NPM.
+Until then, the package can be installed from its github URL, examples:
+
 ```bash
-yarn add @hmcts/div-pay-client
+# Install the latest version
+yarn add https://github.com/hmcts/div-pay-client
+
+# Install a specific version
+yarn add https://github.com/hmcts/div-pay-client#4.0.2
 ```
 
 
