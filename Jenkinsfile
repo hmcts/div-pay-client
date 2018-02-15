@@ -6,10 +6,21 @@ buildNode {
   checkoutRepo()
 
   try {
-    sh 'yarn'
-    sh 'yarn test'
+    make 'install', name: 'Install dependencies'
+    make 'test', name: 'Test'
+
+    stage('Sonar scanner') {
+      onPR {
+        sh 'yarn sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.host.url=$SONARQUBE_URL'
+      }
+
+      onMaster {
+       sh 'yarn sonar-scanner -Dsonar.host.url=$SONARQUBE_URL'
+      }
+    }
+
   } finally {
-    sh 'rm -rf node_modules'
+    make 'clean'
   }
 
   onPR {

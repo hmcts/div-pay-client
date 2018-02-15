@@ -13,3 +13,4 @@ coverage
 .lock-wscript
 .node_repl_history
 *.tgz
+.scannerwork
