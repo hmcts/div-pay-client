@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   dev:
-    image: divorce/yarn
+    image: divorce/yarn:8
     environment:
       - NODE_ENV=dev
     volumes:
