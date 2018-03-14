@@ -1,5 +1,5 @@
 const request = require('request-promise-native');
-const uuid = require('uuid/v4');
+const logger = require('@hmcts/nodejs-logging').getLogger(__filename);
 
 /**
  * Create a payment
@@ -9,7 +9,7 @@ const uuid = require('uuid/v4');
  * @param {string} serviceToken Bearer token for service to service calls
  * @param {number|string} user.id
  * @param {string} user.bearerToken
- * @param {string} [caseReference=uuid()]
+ * @param {string} [caseReference]
  * @param {string} [siteId=AA00] The identifier of the site associated with payment
  * @param {string} feeCode Fee type as taken from the fees register
  * @param {number} amount Fee amount as taken from the fees register. Amount is
@@ -25,10 +25,19 @@ const create = (options = {}, user = {}, serviceToken = '', caseReference = '', 
     return Promise.reject(new Error('Service Authorization Token must be set'));
   }
 
+  if (!caseReference) {
+    logger.error('Case Reference is not supplied.');
+    return Promise.reject(new Error('Case Reference not supplied, throwing error'));
+  }
+
+  if (siteId === 'AA00') {
+    logger.info('Default Site ID is being used.');
+  }
+
   const uri = `${options.apiBaseUrl}/users/${user.id}/payments`;
   const body = {
     amount,
-    reference: `${options.serviceIdentification}$$$${caseReference || uuid()}$$$${siteId}$$$${feeCode}`,
+    reference: `${options.serviceIdentification}$$$${caseReference}$$$${siteId}$$$${feeCode}`,
     description,
     return_url: returnUrl
   };

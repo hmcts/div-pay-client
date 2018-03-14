@@ -85,13 +85,11 @@ describe('payClient', () => {
     });
 
     context('Case reference is not set', () => {
-      it('creates a UUID as case reference', () => {
+      it('rejects early', () => {
         // Act.
-        client.create(user, serviceToken, undefined, siteId, feeCode, amount,
-          description, returnUrl);
-        // Assert.
-        const { args } = request.post.getCall(0);
-        expect(args[0].body.reference).to.match(new RegExp(`^${options.serviceIdentification}\\$\\$\\$[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\$\\$\\$${siteId}\\$\\$\\$${feeCode}$`));
+        expect(client.create(user, serviceToken, undefined, siteId, feeCode,
+          amount, description, returnUrl))
+          .to.be.rejectedWith('Case Reference not supplied, throwing error');
       });
     });
 

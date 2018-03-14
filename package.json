@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/div-pay-client",
-  "version": "4.0.5",
+  "version": "5.0.0",
   "description": "Wrapper for payment-api calls",
   "license": "MIT",
   "main": "index.js",
@@ -21,7 +21,7 @@
   "dependencies": {
     "request": "^2.81.0",
     "request-promise-native": "^1.0.5",
-    "uuid": "^3.1.0"
+    "@hmcts/nodejs-logging": "^1.4.2"
   },
   "devDependencies": {
     "@hmcts/eslint-config": "^1.2.0",
