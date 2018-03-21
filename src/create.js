@@ -20,7 +20,8 @@ const logger = require('@hmcts/nodejs-logging').getLogger(__filename);
  * @returns {Promise} Request promise as returned by request-promise-native
  * @see https://tools.hmcts.net/confluence/display/RP/Payment+Reference+Standardisation
  */
-const create = (options = {}, user = {}, serviceToken = '', caseReference = '', siteId = 'AA00', feeCode = '', amount = 0, description = '', returnUrl = '') => {
+const create = (options = {}, user = {}, serviceToken = '', caseReference = '', siteId = 'AA00', feeCode = '',
+  feeVersion = 1, amount = 0, description = '', returnUrl = '') => {
   if (!serviceToken) {
     return Promise.reject(new Error('Service Authorization Token must be set'));
   }
@@ -34,16 +35,27 @@ const create = (options = {}, user = {}, serviceToken = '', caseReference = '', 
     logger.info('Default Site ID is being used.');
   }
 
-  const uri = `${options.apiBaseUrl}/users/${user.id}/payments`;
+  const uri = `${options.apiBaseUrl}/card-payments`;
+
   const body = {
     amount,
-    reference: `${options.serviceIdentification}$$$${caseReference}$$$${siteId}$$$${feeCode}`,
+    ccd_case_number: caseReference,
     description,
-    return_url: returnUrl
+    service: 'DIVORCE',
+    currency: 'GBP',
+    site_id: `${siteId}`,
+    fees: [
+      {
+        calculated_amount: amount,
+        code: feeCode,
+        version: feeVersion
+      }
+    ]
   };
   const headers = {
     Authorization: `Bearer ${user.bearerToken}`,
-    ServiceAuthorization: `Bearer ${serviceToken}`
+    ServiceAuthorization: `Bearer ${serviceToken}`,
+    'return-url': returnUrl
   };
 
   return request.post({ uri, body, headers, json: true });

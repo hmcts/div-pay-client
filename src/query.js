@@ -13,16 +13,16 @@ const request = require('request-promise-native');
  *
  * @returns {Promise} Request promise as returned by request-promise-native
  */
-const query = (options = {}, user = {}, serviceToken = '', paymentId = '') => {
+const query = (options = {}, user = {}, serviceToken = '', reference = '') => {
   if (!serviceToken) {
     return Promise.reject(new Error('Service Authorization Token must be set'));
   }
-  if (!paymentId) {
-    return Promise.reject(new Error('Missing Payment ID'));
+  if (!reference) {
+    return Promise.reject(new Error('Missing Reference'));
   }
 
   return request.get({
-    uri: `${options.apiBaseUrl}/users/${user.id}/payments/${paymentId}`,
+    uri: `${options.apiBaseUrl}/card-payments/${reference}`,
     headers: {
       Authorization: `Bearer ${user.bearerToken}`,
       ServiceAuthorization: `Bearer ${serviceToken}`

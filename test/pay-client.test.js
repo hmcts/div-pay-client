@@ -44,7 +44,7 @@ describe('payClient', () => {
 
   describe('#create', () => {
     let user = {}, serviceToken = '', caseReference = '', siteId = '',
-      amount = 0, description = '', returnUrl = '', feeCode = '';
+      amount = 0, description = '', returnUrl = '', feeCode = '', feeVersion = '';
     const fiveThousand = 5000;
 
     beforeEach(() => {
@@ -56,13 +56,14 @@ describe('payClient', () => {
       description = 'description';
       returnUrl = 'https://return-url';
       feeCode = 'CODE';
+      feeVersion = 'VERSION';
     });
 
     context('Service token is not set', () => {
       it('rejects early', () => {
         // Act.
-        expect(client.create(user, undefined, caseReference, feeCode, amount,
-          description, returnUrl))
+        expect(client.create(user, undefined, caseReference, feeCode,
+          feeVersion, amount, description, returnUrl))
           .to.be.rejectedWith('Service Authorization Token must be set');
       });
     });
@@ -71,14 +72,16 @@ describe('payClient', () => {
       it('makes the request according to contract', () => {
         // Act.
         client.create(user, serviceToken, caseReference, siteId, feeCode,
-          amount, description, returnUrl);
+          feeVersion, amount, description, returnUrl);
         // Assert.
         const { args } = request.post.getCall(0);
-        expect(args[0].uri).to.equal(`${options.apiBaseUrl}/users/${user.id}/payments`);
+        expect(args[0].uri).to.equal(`${options.apiBaseUrl}/card-payments`);
         expect(args[0].body.amount).to.equal(amount);
-        expect(args[0].body.reference).to.equal(`${options.serviceIdentification}$$$${caseReference}$$$${siteId}$$$${feeCode}`);
+        expect(args[0].body.ccd_case_number).to.equal(caseReference);
         expect(args[0].body.description).to.equal(description);
-        expect(args[0].body.return_url).to.equal(returnUrl);
+        expect(args[0].body.fees[0].code).to.equal(feeCode);
+        expect(args[0].body.fees[0].version).to.equal(feeVersion);
+        expect(args[0].headers['return-url']).to.equal(returnUrl);
         expect(args[0].headers.Authorization).to.equal(`Bearer ${user.bearerToken}`);
         expect(args[0].headers.ServiceAuthorization).to.equal(`Bearer ${serviceToken}`);
       });
@@ -88,7 +91,7 @@ describe('payClient', () => {
       it('rejects early', () => {
         // Act.
         expect(client.create(user, serviceToken, undefined, siteId, feeCode,
-          amount, description, returnUrl))
+          feeVersion, amount, description, returnUrl))
           .to.be.rejectedWith('Case Reference not supplied, throwing error');
       });
     });
@@ -97,10 +100,10 @@ describe('payClient', () => {
       it('falls back to the default site ID', () => {
         // Act.
         client.create(user, serviceToken, caseReference, undefined, feeCode,
-          amount, description, returnUrl);
+          feeVersion, amount, description, returnUrl);
         // Assert.
         const { args } = request.post.getCall(0);
-        expect(args[0].body.reference).to.match(new RegExp(`^${options.serviceIdentification}\\$\\$\\$${caseReference}\\$\\$\\$AA00\\$\\$\\$${feeCode}$`));
+        expect(args[0].body.site_id).to.equal('AA00');
       });
     });
   });
@@ -136,7 +139,7 @@ describe('payClient', () => {
         client.query(user, serviceToken, paymentId);
         // Assert.
         const { args } = request.get.getCall(0);
-        expect(args[0].uri).to.equal(`${options.apiBaseUrl}/users/${user.id}/payments/${paymentId}`);
+        expect(args[0].uri).to.equal(`${options.apiBaseUrl}/card-payments/${paymentId}`);
         expect(args[0].headers.Authorization).to.equal(`Bearer ${user.bearerToken}`);
         expect(args[0].headers.ServiceAuthorization).to.equal(`Bearer ${options.serviceAuthorizationToken}`);
       });
