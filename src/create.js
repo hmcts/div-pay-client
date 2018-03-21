@@ -39,7 +39,7 @@ const create = (options = {}, user = {}, serviceToken = '', caseReference = '', 
 
   const body = {
     amount,
-    ccd_case_number: `${caseReference}`,
+    ccd_case_number: caseReference,
     description,
     service: 'DIVORCE',
     currency: 'GBP',
