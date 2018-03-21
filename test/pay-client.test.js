@@ -77,7 +77,7 @@ describe('payClient', () => {
         const { args } = request.post.getCall(0);
         expect(args[0].uri).to.equal(`${options.apiBaseUrl}/card-payments`);
         expect(args[0].body.amount).to.equal(amount);
-        expect(args[0].body.ccd_case_number).to.equal(`${caseReference}`);
+        expect(args[0].body.ccd_case_number).to.equal(caseReference);
         expect(args[0].body.description).to.equal(description);
         expect(args[0].body.fees[0].code).to.equal(feeCode);
         expect(args[0].body.fees[0].version).to.equal(feeVersion);
