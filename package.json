@@ -21,7 +21,7 @@
   "dependencies": {
     "request": "^2.81.0",
     "request-promise-native": "^1.0.5",
-    "@hmcts/nodejs-logging": "^1.4.2"
+    "@hmcts/nodejs-logging": "^3.0.0"
   },
   "devDependencies": {
     "@hmcts/eslint-config": "^1.2.0",
