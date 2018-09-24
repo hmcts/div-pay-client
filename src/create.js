@@ -1,5 +1,5 @@
 const request = require('request-promise-native');
-const logger = require('@hmcts/nodejs-logging').getLogger(__filename);
+const logger = require('@hmcts/nodejs-logging').Logger.getLogger(__filename);
 
 /**
  * Create a payment
@@ -27,12 +27,16 @@ const create = (options = {}, user = {}, serviceToken = '', caseReference = '', 
   }
 
   if (!caseReference) {
-    logger.error('Case Reference is not supplied.');
+    logger.error({
+      message: 'Case Reference is not supplied.'
+    });
     return Promise.reject(new Error('Case Reference not supplied, throwing error'));
   }
 
   if (siteId === 'AA00') {
-    logger.info('Default Site ID is being used.');
+    logger.info({
+      message: 'Default Site ID is being used.'
+    });
   }
 
   const uri = `${options.apiBaseUrl}/card-payments`;
