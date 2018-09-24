@@ -35,5 +35,8 @@
     "pre-commit": "^1.2.2",
     "sinon": "^4.1.2",
     "sonar-scanner": "^3.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
