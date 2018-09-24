@@ -27,16 +27,12 @@ const create = (options = {}, user = {}, serviceToken = '', caseReference = '', 
   }
 
   if (!caseReference) {
-    logger.error({
-      message: 'Case Reference is not supplied.'
-    });
+    logger.error({ message: 'Case Reference is not supplied.' });
     return Promise.reject(new Error('Case Reference not supplied, throwing error'));
   }
 
   if (siteId === 'AA00') {
-    logger.info({
-      message: 'Default Site ID is being used.'
-    });
+    logger.info({ message: 'Default Site ID is being used.' });
   }
 
   const uri = `${options.apiBaseUrl}/card-payments`;
