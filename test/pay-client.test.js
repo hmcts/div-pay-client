@@ -44,7 +44,7 @@ describe('payClient', () => {
 
   describe('#create', () => {
     let user = {}, serviceToken = '', caseReference = '', siteId = '',
-      amount = 0, description = '', returnUrl = '', feeCode = '', feeVersion = '';
+      amount = 0, description = '', returnUrl = '', serviceCallbackUrl = '', feeCode = '', feeVersion = '';
     const fiveThousand = 5000;
 
     beforeEach(() => {
@@ -55,6 +55,7 @@ describe('payClient', () => {
       amount = fiveThousand;
       description = 'description';
       returnUrl = 'https://return-url';
+      serviceCallbackUrl = 'http://callback-url';
       feeCode = 'CODE';
       feeVersion = 'VERSION';
     });
@@ -63,7 +64,7 @@ describe('payClient', () => {
       it('rejects early', () => {
         // Act.
         expect(client.create(user, undefined, caseReference, feeCode,
-          feeVersion, amount, description, returnUrl))
+          feeVersion, amount, description, returnUrl, serviceCallbackUrl))
           .to.be.rejectedWith('Service Authorization Token must be set');
       });
     });
@@ -72,7 +73,7 @@ describe('payClient', () => {
       it('makes the request according to contract', () => {
         // Act.
         client.create(user, serviceToken, caseReference, siteId, feeCode,
-          feeVersion, amount, description, returnUrl);
+          feeVersion, amount, description, returnUrl, serviceCallbackUrl);
         // Assert.
         const { args } = request.post.getCall(0);
         expect(args[0].uri).to.equal(`${options.apiBaseUrl}/card-payments`);
@@ -82,6 +83,7 @@ describe('payClient', () => {
         expect(args[0].body.fees[0].code).to.equal(feeCode);
         expect(args[0].body.fees[0].version).to.equal(feeVersion);
         expect(args[0].headers['return-url']).to.equal(returnUrl);
+        expect(args[0].headers['service-callback-url']).to.equal(serviceCallbackUrl);
         expect(args[0].headers.Authorization).to.equal(`Bearer ${user.bearerToken}`);
         expect(args[0].headers.ServiceAuthorization).to.equal(`Bearer ${serviceToken}`);
       });
@@ -91,7 +93,7 @@ describe('payClient', () => {
       it('rejects early', () => {
         // Act.
         expect(client.create(user, serviceToken, undefined, siteId, feeCode,
-          feeVersion, amount, description, returnUrl))
+          feeVersion, amount, description, returnUrl, serviceCallbackUrl))
           .to.be.rejectedWith('Case Reference not supplied, throwing error');
       });
     });
@@ -100,7 +102,7 @@ describe('payClient', () => {
       it('falls back to the default site ID', () => {
         // Act.
         client.create(user, serviceToken, caseReference, undefined, feeCode,
-          feeVersion, amount, description, returnUrl);
+          feeVersion, amount, description, returnUrl, serviceCallbackUrl);
         // Assert.
         const { args } = request.post.getCall(0);
         expect(args[0].body.site_id).to.equal('AA00');

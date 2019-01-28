@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/div-pay-client",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "Wrapper for payment-api calls",
   "license": "MIT",
   "main": "index.js",
@@ -12,7 +12,7 @@
     "test-coverage": "LOG_LEVEL=OFF istanbul cover _mocha",
     "posttest-coverage": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "test-nsp": "nsp check",
-    "test": "yarn lint && yarn test-coverage && yarn test-nsp",
+    "test": "yarn lint && yarn test-coverage",
     "sonar-scanner": "sonar-scanner"
   },
   "pre-commit": [
