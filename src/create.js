@@ -22,7 +22,7 @@ const logger = require('@hmcts/nodejs-logging').Logger.getLogger(__filename);
  * @see https://tools.hmcts.net/confluence/display/RP/Payment+Reference+Standardisation
  */
 const create = (options = {}, user = {}, serviceToken = '', caseReference = '', siteId = 'AA00', feeCode = '',
-  feeVersion = 1, amount = 0, description = '', returnUrl = '', serviceCallbackUrl) => {
+  feeVersion = 1, amount = 0, description = '', returnUrl = '', serviceCallbackUrl = '') => {
   if (!serviceToken) {
     return Promise.reject(new Error('Service Authorization Token must be set'));
   }
