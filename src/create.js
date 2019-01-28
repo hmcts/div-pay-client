@@ -16,12 +16,13 @@ const logger = require('@hmcts/nodejs-logging').Logger.getLogger(__filename);
  *   specified in pence, e.g 1000 for £10.00
  * @param {string} description Fee description as taken from the fees register
  * @param {string} returnUrl Must be a https URL to pass upstream validation
+ * @param {string} serviceCallbackUrl Must be a http URL for the callback when payment update fails
  *
  * @returns {Promise} Request promise as returned by request-promise-native
  * @see https://tools.hmcts.net/confluence/display/RP/Payment+Reference+Standardisation
  */
 const create = (options = {}, user = {}, serviceToken = '', caseReference = '', siteId = 'AA00', feeCode = '',
-  feeVersion = 1, amount = 0, description = '', returnUrl = '') => {
+  feeVersion = 1, amount = 0, description = '', returnUrl = '', serviceCallbackUrl) => {
   if (!serviceToken) {
     return Promise.reject(new Error('Service Authorization Token must be set'));
   }
@@ -55,7 +56,8 @@ const create = (options = {}, user = {}, serviceToken = '', caseReference = '', 
   const headers = {
     Authorization: `Bearer ${user.bearerToken}`,
     ServiceAuthorization: `Bearer ${serviceToken}`,
-    'return-url': returnUrl
+    'return-url': returnUrl,
+    'service-callback-url': serviceCallbackUrl
   };
 
   return request.post({ uri, body, headers, json: true });
