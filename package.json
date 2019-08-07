@@ -1,17 +1,16 @@
 {
   "name": "@hmcts/div-pay-client",
-  "version": "6.2.1",
+  "version": "7.0.0",
   "description": "Wrapper for payment-api calls",
   "license": "MIT",
   "main": "index.js",
   "engines": {
-    "node": ">=8.0"
+    "node": ">=10.15.2"
   },
   "scripts": {
     "lint": "eslint .",
     "test-coverage": "LOG_LEVEL=OFF istanbul cover _mocha",
     "posttest-coverage": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
-    "test-nsp": "nsp check",
     "test": "yarn lint && yarn test-coverage",
     "sonar-scanner": "sonar-scanner"
   },
@@ -32,7 +31,6 @@
     "eslint-plugin-mocha": "^4.11.0",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
-    "nsp": "^3.1.0",
     "pre-commit": "^1.2.2",
     "sinon": "^4.1.2",
     "sonar-scanner": "^3.0.3"
