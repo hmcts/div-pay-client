@@ -4,7 +4,7 @@ Client library for the Pay common component.
 
 ## Requirements
 
-* Node >=8.0
+* Node >=10.15.2
 * yarn
 
 
