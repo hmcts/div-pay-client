@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "@hmcts/nodejs-logging": "^3.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.5"
   },
