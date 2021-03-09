@@ -10,7 +10,7 @@ const logger = require('@hmcts/nodejs-logging').Logger.getLogger(__filename);
  * @param {number|string} user.id
  * @param {string} user.bearerToken
  * @param {string} [caseReference]
- * @param {string} [siteId=AA00] The identifier of the site associated with payment
+ * @param {string} [caseType=DIVORCE] The identifier of the case type
  * @param {string} feeCode Fee type as taken from the fees register
  * @param {number} amount Fee amount as taken from the fees register. Amount is
  *   specified in pence, e.g 1000 for £10.00
@@ -21,7 +21,7 @@ const logger = require('@hmcts/nodejs-logging').Logger.getLogger(__filename);
  * @returns {Promise} Request promise as returned by request-promise-native
  * @see https://tools.hmcts.net/confluence/display/RP/Payment+Reference+Standardisation
  */
-const create = (options = {}, user = {}, serviceToken = '', caseReference = '', siteId = 'AA00', feeCode = '',
+const create = (options = {}, user = {}, serviceToken = '', caseReference = '', caseType = 'DIVORCE', feeCode = '',
   feeVersion = 1, amount = 0, description = '', returnUrl = '', serviceCallbackUrl = '', language = 'en') => {
   if (!serviceToken) {
     return Promise.reject(new Error('Service Authorization Token must be set'));
@@ -32,19 +32,14 @@ const create = (options = {}, user = {}, serviceToken = '', caseReference = '', 
     return Promise.reject(new Error('Case Reference not supplied, throwing error'));
   }
 
-  if (siteId === 'AA00') {
-    logger.info({ message: 'Default Site ID is being used.' });
-  }
-
   const uri = `${options.apiBaseUrl}/card-payments`;
 
   const body = {
     amount,
     ccd_case_number: caseReference,
     description,
-    service: 'DIVORCE',
     currency: 'GBP',
-    site_id: `${siteId}`,
+    case_type: `${caseType}`,
     fees: [
       {
         calculated_amount: amount,
