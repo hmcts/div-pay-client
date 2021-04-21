@@ -43,7 +43,7 @@ describe('payClient', () => {
   });
 
   describe('#create', () => {
-    let user = {}, serviceToken = '', caseReference = '', siteId = '',
+    let user = {}, serviceToken = '', caseReference = '', caseType = '',
       amount = 0, description = '', returnUrl = '', serviceCallbackUrl = '', feeCode = '', feeVersion = '';
     const fiveThousand = 5000;
 
@@ -51,7 +51,7 @@ describe('payClient', () => {
       user = { id: 99, bearerToken: 'user-token' };
       serviceToken = 'service-token';
       caseReference = 'CASE-REFERENCE';
-      siteId = 'some-site-id';
+      caseType = 'DIVORCE';
       amount = fiveThousand;
       description = 'description';
       returnUrl = 'https://return-url';
@@ -72,7 +72,7 @@ describe('payClient', () => {
     context('Case reference is set', () => {
       it('makes the request according to contract', () => {
         // Act.
-        client.create(user, serviceToken, caseReference, siteId, feeCode,
+        client.create(user, serviceToken, caseReference, caseType, feeCode,
           feeVersion, amount, description, returnUrl, serviceCallbackUrl);
         // Assert.
         const { args } = request.post.getCall(0);
@@ -92,20 +92,20 @@ describe('payClient', () => {
     context('Case reference is not set', () => {
       it('rejects early', () => {
         // Act.
-        expect(client.create(user, serviceToken, undefined, siteId, feeCode,
+        expect(client.create(user, serviceToken, undefined, caseType, feeCode,
           feeVersion, amount, description, returnUrl, serviceCallbackUrl))
           .to.be.rejectedWith('Case Reference not supplied, throwing error');
       });
     });
 
-    context('Site ID is not set', () => {
-      it('falls back to the default site ID', () => {
+    context('Case Type is not set', () => {
+      it('falls back to the default Case Type', () => {
         // Act.
         client.create(user, serviceToken, caseReference, undefined, feeCode,
           feeVersion, amount, description, returnUrl, serviceCallbackUrl);
         // Assert.
         const { args } = request.post.getCall(0);
-        expect(args[0].body.site_id).to.equal('AA00');
+        expect(args[0].body.case_type).to.equal('DIVORCE');
       });
     });
   });
