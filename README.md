@@ -39,7 +39,7 @@ const client = payClient.init({
 ### Create a payment
 
 ```js
-client.create(user, serviceToken, caseReference, siteId, feeCode, amount, description, returnUrl)
+client.create(user, serviceToken, caseReference, caseType, feeCode, amount, description, returnUrl)
   .then(responsePayload => {
     // JSON response payload should be available here.
   })
@@ -107,7 +107,7 @@ response.
 
 ### Payment Reference
 
-The payment reference is a string containing the service ID, a Case Reference, a Site ID and a Fee Code concatenated with `$$$`.
+The payment reference is a string containing the service ID, a Case Reference, the Divorce Case Type, and a Fee Code concatenated with `$$$`.
 For transactions where the Case Reference is not known, a random identifier is generated.
 In these cases the Case Reference must be assigned to the payment for reconciliation purposes.
 
