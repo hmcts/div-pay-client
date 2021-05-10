@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/div-pay-client",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "description": "Wrapper for payment-api calls",
   "license": "MIT",
   "main": "index.js",
