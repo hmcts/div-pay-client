@@ -21,8 +21,7 @@
     "@hmcts/div-pay-client": "https://github.com/hmcts/div-pay-client",
     "@hmcts/nodejs-logging": "^3.0.0",
     "axios":"^0.21.1",
-    "lodash": "^4.17.15",
-    "request": "^2.81.0"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@hmcts/eslint-config": "^1.2.0",
