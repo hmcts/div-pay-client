@@ -2,7 +2,7 @@
 /* eslint-disable no-undefined */
 const { expect } = require('chai').use(require('chai-as-promised'));
 const sinon = require('sinon');
-const request = require('request-promise-native');
+const request = require('axios');
 
 const payClient = require('../index');
 
