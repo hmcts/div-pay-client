@@ -2,15 +2,6 @@
 # yarn lockfile v1
 
 
-"@hmcts/div-pay-client@https://github.com/hmcts/div-pay-client":
-  version "7.0.1"
-  resolved "https://github.com/hmcts/div-pay-client#e3602121cdc624c91b36c4b4432542f52cf3ca15"
-  dependencies:
-    "@hmcts/nodejs-logging" "^3.0.0"
-    lodash "^4.17.15"
-    request "^2.81.0"
-    request-promise-native "^1.0.5"
-
 "@hmcts/eslint-config@^1.2.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@hmcts/eslint-config/-/eslint-config-1.4.0.tgz#e713457cee3758a43394c2974913885aaae8a41b"
