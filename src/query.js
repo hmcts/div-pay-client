@@ -1,4 +1,4 @@
-const request = require('request-promise-native');
+const request = require('axios');
 
 /**
  * Get the status of a payment
@@ -11,7 +11,7 @@ const request = require('request-promise-native');
  * @param {number|string} paymentId Payment reference returned by payment-api on
  *   creating the payment
  *
- * @returns {Promise} Request promise as returned by request-promise-native
+ * @returns {Promise} Request promise as returned by axios
  */
 const query = (options = {}, user = {}, serviceToken = '', reference = '') => {
   if (!serviceToken) {

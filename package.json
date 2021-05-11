@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/div-pay-client",
-  "version": "7.0.5",
+  "version": "7.0.6",
   "description": "Wrapper for payment-api calls",
   "license": "MIT",
   "main": "index.js",
@@ -18,7 +18,6 @@
     "lint"
   ],
   "dependencies": {
-    "@hmcts/div-pay-client": "https://github.com/hmcts/div-pay-client",
     "@hmcts/nodejs-logging": "^3.0.0",
     "axios":"^0.21.1",
     "lodash": "^4.17.15"

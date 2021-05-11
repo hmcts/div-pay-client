@@ -1,4 +1,4 @@
-const request = require('request-promise-native');
+const request = require('axios');
 const logger = require('@hmcts/nodejs-logging').Logger.getLogger(__filename);
 
 /**
@@ -18,7 +18,7 @@ const logger = require('@hmcts/nodejs-logging').Logger.getLogger(__filename);
  * @param {string} returnUrl Must be a https URL to pass upstream validation
  * @param {string} serviceCallbackUrl Must be a http URL for the callback when payment update fails
  *
- * @returns {Promise} Request promise as returned by request-promise-native
+ * @returns {Promise} Request promise as returned by axios
  * @see https://tools.hmcts.net/confluence/display/RP/Payment+Reference+Standardisation
  */
 const create = (options = {}, user = {}, serviceToken = '', caseReference = '', caseType = 'DIVORCE', feeCode = '',
